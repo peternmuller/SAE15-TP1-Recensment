@@ -37,32 +37,31 @@ donnees_2016=selec_region(donnees_2016, 2016,89, metadonnees_communes,agglo_tota
 donnees_2021=selec_region(donnees_2021, 2021,89, metadonnees_communes,agglo_total)
 #On a maintenant 3 listes qui contiennent dans l'ordre : nom de la commune, population municipale, population comptée à part et population totale
 
-donnees=[]			
+donnees=[]					#liste de 29 entrées pour les 29 communes avec leur population en 2008, 2016 et 2021
 for i in range(29):
 	donnees.append([donnees_2008[i][0],donnees_2008[i][3],donnees_2016[i][3],donnees_2021[i][3]])
 
-donnees_agglo=[0,0,0]
+donnees_agglo=[0,0,0]		#liste de 3 entrées pour la population en 2008, 2016 et 2021 sur l'agglomération totale
 for commune in donnees:
 	for annee in range(3):
 		donnees_agglo[annee]=donnees_agglo[annee]+commune[annee+1]
 
-donnees_agglo_imm=[0,0,0]
+donnees_agglo_imm=[0,0,0]	#liste de 3 entrées pour la population en 2008, 2016 et 2021 sur l'agglomération immédiate
 for commune in donnees:
 	for annee in range(3):
 		if commune[0] in agglo_imm:
 			donnees_agglo_imm[annee]=donnees_agglo_imm[annee]+commune[annee+1]
 			
-donnees_aux=[0,0,0]
+donnees_aux=[0,0,0]			#liste de 3 entrées pour la population en 2008, 2016 et 2021 sur Auxerre
 for commune in donnees:
 	for annee in range(3):
 		if commune[0] == "Auxerre":
 			donnees_aux[annee]=commune[annee+1]
 
 annees=[2008,2016,2021]
-print(donnees_agglo,donnees_agglo_imm,donnees_aux)
 figure("Evolution de la population") 
 plot(annees,donnees_agglo,label="Agglomération totale")
-plot(annees,donnees_agglo_imm,label="l'agglomération immédiate")
+plot(annees,donnees_agglo_imm,label="Agglomération immédiate")
 plot(annees,donnees_aux,label="Auxerre")
 plt.legend()
 show()
